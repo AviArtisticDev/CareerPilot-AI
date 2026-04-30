@@ -12,14 +12,21 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://local
 app.use(cors({
   origin: function (origin, callback) {
     console.log("Incoming Origin:", origin);
+
+    // Allow requests with no origin (server, postman, etc.)
     if (!origin) return callback(null, true);
 
-    const isAllowed = allowedOrigins.some(o => origin.startsWith(o));
+    // Normalize origin (remove trailing slash)
+    const normalizedOrigin = origin.replace(/\/$/, "");
+
+    const isAllowed = allowedOrigins.some(o =>
+      normalizedOrigin === o || normalizedOrigin.startsWith(o)
+    );
 
     if (isAllowed) {
       callback(null, true);
     } else {
-      console.log("Blocked:", origin);
+      console.log("Blocked:", normalizedOrigin);
       callback(new Error("Not allowed by CORS"));
     }
   },
