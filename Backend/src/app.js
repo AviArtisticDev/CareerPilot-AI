@@ -11,7 +11,7 @@ app.use(cookieParser())
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173', 'http://localhost:5174'];
 app.use(cors({
   origin: function (origin, callback) {
-    console.log("Incoming Origin:", origin);
+    // console.log("Incoming Origin:", origin);
 
     // Allow requests with no origin (server, postman, etc.)
     if (!origin) return callback(null, true);
