@@ -8,19 +8,22 @@ app.use(express.json())
 app.use(cookieParser())
 
 // CORS configuration
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173', 'http://localhost:5173'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173', 'http://localhost:5174'];
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}))
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    const isAllowed = allowedOrigins.some(o => origin.startsWith(o));
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.log("Blocked:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 
 /* require all the routes here */
 const authRouter = require("./routes/auth.routes")
