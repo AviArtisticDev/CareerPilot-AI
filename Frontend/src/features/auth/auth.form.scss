@@ -1,0 +1,268 @@
+@use "sass:color";
+
+$bg-page: #0d1117;
+$bg-orb: #111827;
+$bg-card: #161b22;
+$bg-panel: #1c2230;
+$bg-input: #1e2535;
+$border-color: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$text-soft: #9da7b3;
+$accent: #ff2d78;
+$accent-alt: #ff6b9d;
+$error: #ff6b6b;
+$error-bg: rgba(#ff6b6b, 0.1);
+$font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+main {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        radial-gradient(circle at top left, rgba($accent, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba($accent-alt, 0.08), transparent 24%),
+        linear-gradient(180deg, $bg-orb 0%, $bg-page 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    font-family: $font-stack;
+
+    .form-container {
+        width: 100%;
+        max-width: 460px;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+            $bg-card;
+        border: 1px solid $border-color;
+        border-radius: 1rem;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        animation: fade-up 0.35s ease-out;
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: $text-primary;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            margin: 0;
+            color: $text-muted;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+
+            a {
+                color: $accent;
+                font-weight: 600;
+                text-decoration: none;
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: $accent-alt;
+                }
+            }
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .error-message {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border: 1px solid rgba($error, 0.25);
+        background: $error-bg;
+        border-radius: 0.75rem;
+        padding: 0.9rem 1rem;
+        color: $error;
+        font-size: 0.92rem;
+
+        &::before {
+            content: "!";
+            width: 1.3rem;
+            height: 1.3rem;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: $bg-page;
+            background: $error;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+
+        label {
+            color: $text-primary;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid $border-color;
+            outline: none;
+            padding: 0.85rem 1rem;
+            border-radius: 0.7rem;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: $text-primary;
+            background-color: $bg-input;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+            &::placeholder {
+                color: $text-soft;
+            }
+
+            &:focus {
+                border-color: $accent;
+                box-shadow: 0 0 0 3px rgba($accent, 0.12);
+                background-color: color.adjust($bg-input, $lightness: 2%);
+            }
+
+            &:disabled {
+                opacity: 0.65;
+                cursor: not-allowed;
+            }
+        }
+
+        .password-requirements {
+            background-color: $bg-panel;
+            border: 1px solid $border-color;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 0.25rem;
+
+            .requirements-title {
+                margin: 0 0 0.75rem;
+                color: $text-primary;
+                font-size: 0.88rem;
+                font-weight: 600;
+                text-align: left;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                color: $text-muted;
+                font-size: 0.84rem;
+                line-height: 1.45;
+
+                span {
+                    width: 1.15rem;
+                    height: 1.15rem;
+                    border-radius: 999px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    flex-shrink: 0;
+                }
+
+                &.met {
+                    color: #7ee787;
+
+                    span {
+                        color: #7ee787;
+                        background-color: rgba(#3fb950, 0.14);
+                        border: 1px solid rgba(#3fb950, 0.25);
+                    }
+                }
+
+                &.unmet {
+                    color: $text-muted;
+
+                    span {
+                        color: $error;
+                        background-color: rgba($error, 0.08);
+                        border: 1px solid rgba($error, 0.2);
+                    }
+                }
+            }
+        }
+    }
+
+    button {
+        width: 100% !important;
+        margin-top: 0.25rem;
+        border-radius: 0.8rem !important;
+        padding: 0.95rem 1.25rem !important;
+        font-size: 0.98rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.01em;
+
+        &.primary-button {
+            background: linear-gradient(135deg, $accent 0%, $accent-alt 100%) !important;
+            color: white !important;
+            box-shadow: 0 14px 30px rgba($accent, 0.22);
+
+            &:hover:not(:disabled) {
+                transform: translateY(-1px);
+                box-shadow: 0 18px 34px rgba($accent, 0.28);
+            }
+        }
+
+        &:disabled {
+            background: #2b3240 !important;
+            color: $text-soft !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    main {
+        padding: 1.25rem;
+
+        .form-container {
+            padding: 2rem 1.2rem;
+            gap: 1rem;
+
+            h1 {
+                font-size: 1.75rem;
+                text-align: center;
+            }
+        }
+    }
+}

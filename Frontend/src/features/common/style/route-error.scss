@@ -1,0 +1,112 @@
+$bg-page: #0d1117;
+$bg-card: #161b22;
+$bg-panel: #1c2230;
+$border-color: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$accent: #ff2d78;
+$accent-alt: #ff6b9d;
+
+.route-error-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background:
+        radial-gradient(circle at top left, rgba(255, 45, 120, 0.14), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255, 107, 157, 0.1), transparent 24%),
+        linear-gradient(180deg, #111827 0%, $bg-page 100%);
+}
+
+.route-error-card {
+    width: 100%;
+    max-width: 620px;
+    padding: 3rem 2rem;
+    border-radius: 1.25rem;
+    border: 1px solid $border-color;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+        $bg-card;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+    text-align: center;
+
+    h1 {
+        margin: 0 0 0.9rem;
+        color: $text-primary;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+    }
+
+    p {
+        max-width: 46ch;
+        margin: 0 auto;
+        color: $text-muted;
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+}
+
+.route-error-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 4.75rem;
+    margin-bottom: 1.25rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 45, 120, 0.25);
+    background: rgba(255, 45, 120, 0.1);
+    color: $accent;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.route-error-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+
+    .primary-button {
+        text-decoration: none;
+        background: linear-gradient(135deg, $accent 0%, $accent-alt 100%) !important;
+        box-shadow: 0 14px 30px rgba(255, 45, 120, 0.24);
+    }
+}
+
+.route-error-link {
+    color: $text-primary;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.85rem 1rem;
+    border-radius: 0.9rem;
+    border: 1px solid $border-color;
+    background: $bg-panel;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        border-color: $accent;
+        color: $accent;
+    }
+}
+
+@media (max-width: 640px) {
+    .route-error-card {
+        padding: 2.25rem 1.25rem;
+    }
+
+    .route-error-actions {
+        flex-direction: column;
+
+        a {
+            width: 100%;
+        }
+    }
+}
